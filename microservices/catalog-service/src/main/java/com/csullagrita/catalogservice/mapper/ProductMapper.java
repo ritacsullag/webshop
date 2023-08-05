@@ -2,6 +2,7 @@ package com.csullagrita.catalogservice.mapper;
 
 import com.csullagrita.catalogservice.dto.CategoryDto;
 import com.csullagrita.catalogservice.dto.ProductDto;
+import com.csullagrita.catalogservice.dto.ProductPriceHistoryDto;
 import com.csullagrita.catalogservice.model.Category;
 import com.csullagrita.catalogservice.model.Product;
 import org.mapstruct.IterableMapping;
@@ -15,6 +16,8 @@ import java.util.List;
 public interface ProductMapper {
 
     ProductDto productToDto(Product product);
+
+    ProductPriceHistoryDto productToProductHistoryDto(Product product);
 
     Product dtoToProduct(ProductDto productDto);
 

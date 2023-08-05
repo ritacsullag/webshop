@@ -1,7 +1,9 @@
 package com.csullagrita.catalogservice.controller;
 
 import com.csullagrita.catalogservice.dto.ProductDto;
+import com.csullagrita.catalogservice.dto.ProductPriceHistoryDto;
 import com.csullagrita.catalogservice.mapper.ProductMapper;
+import com.csullagrita.catalogservice.model.HistoryData;
 import com.csullagrita.catalogservice.model.Product;
 import com.csullagrita.catalogservice.repository.ProductRepository;
 import com.csullagrita.catalogservice.service.ProductService;
@@ -13,6 +15,7 @@ import org.springframework.data.web.SortDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -69,5 +72,23 @@ public class ProductController {
         } else {
             return productMapper.productSummariesToDtos(productRepository.findAll(predicate, pageable));
         }
+    }
+
+    @GetMapping("/pricehistory/{id}")
+    public List<HistoryData<ProductPriceHistoryDto>> getProductHistoryById(@PathVariable("id") long productId) {
+        List<HistoryData<Product>> productHistories = productService.getProductHistoryWithRelation(productId);
+        List<HistoryData<ProductPriceHistoryDto>> productDtoHistories = new ArrayList<>();
+
+        productHistories
+                .forEach(
+                        productHistory -> productDtoHistories.add(
+                                new HistoryData<>(
+                                        productMapper.productToProductHistoryDto(productHistory.getData()),
+                                        productHistory.getDate()
+                                )
+                        )
+                );
+
+        return productDtoHistories;
     }
 }
