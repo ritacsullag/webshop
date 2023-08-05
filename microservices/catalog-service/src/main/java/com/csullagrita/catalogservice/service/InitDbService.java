@@ -23,7 +23,7 @@ public class InitDbService {
 //    @LogCall
     public void deleteData() {
         categoryRepository.deleteAll();
-
+        productRepository.deleteAll();
     }
 
 //    @Transactional
@@ -35,8 +35,10 @@ public class InitDbService {
 
     @Transactional
     public void addInitData() {
-        Category category = categoryRepository.save(Category.builder().name("nice").build());
-        Product product = productRepository.save(Product.builder().name("game").price(45.6).category(category).build());
+        Category category1 = categoryRepository.save(Category.builder().name("game").build());
+        Category category2 = categoryRepository.save(Category.builder().name("food").build());
+        productRepository.save(Product.builder().name("uno card").price(12.4).category(category1).build());
+        productRepository.save(Product.builder().name("banana").price(2.1).category(category2).build());
 
     }
 }

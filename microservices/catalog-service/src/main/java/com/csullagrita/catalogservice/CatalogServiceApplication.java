@@ -19,7 +19,7 @@ public class CatalogServiceApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        dbInitService.deleteData();
+        dbInitService.deleteData();
 //        dbInitService.deleteAudData();
         dbInitService.addInitData();
     }

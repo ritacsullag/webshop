@@ -8,9 +8,9 @@ create table category
 );
 create table product
 (
+    id          bigint    not null,
     price       float(53) not null,
     category_id bigint,
-    id          bigint    not null,
     name        varchar(255),
     primary key (id)
 );
