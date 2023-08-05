@@ -1,7 +1,6 @@
-package com.csullagrita.catalogservice.Dto;
+package com.csullagrita.catalogservice.dto;
 
 import com.csullagrita.catalogservice.model.Product;
-import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 import java.util.Set;

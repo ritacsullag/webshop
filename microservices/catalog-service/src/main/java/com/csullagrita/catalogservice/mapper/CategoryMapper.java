@@ -1,6 +1,6 @@
 package com.csullagrita.catalogservice.mapper;
 
-import com.csullagrita.catalogservice.Dto.CategoryDto;
+import com.csullagrita.catalogservice.dto.CategoryDto;
 import com.csullagrita.catalogservice.model.Category;
 import org.mapstruct.Mapper;
 

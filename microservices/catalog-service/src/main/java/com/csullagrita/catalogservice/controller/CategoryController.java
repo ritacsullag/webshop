@@ -1,7 +1,7 @@
 package com.csullagrita.catalogservice.controller;
 
 
-import com.csullagrita.catalogservice.Dto.CategoryDto;
+import com.csullagrita.catalogservice.dto.CategoryDto;
 import com.csullagrita.catalogservice.mapper.CategoryMapper;
 import com.csullagrita.catalogservice.service.CategoryService;
 import lombok.RequiredArgsConstructor;

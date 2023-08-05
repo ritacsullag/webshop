@@ -1,4 +1,4 @@
-package com.csullagrita.catalogservice.Dto;
+package com.csullagrita.catalogservice.dto;
 
 import com.csullagrita.catalogservice.model.Category;
 import lombok.Data;
