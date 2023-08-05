@@ -7,6 +7,7 @@ import com.csullagrita.catalogservice.repository.ProductRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 
@@ -19,6 +20,8 @@ public class InitDbService {
     @Autowired
     ProductRepository productRepository;
 
+    JdbcTemplate jdbcTemplate;
+
     @Transactional
 //    @LogCall
     public void deleteData() {
@@ -26,12 +29,11 @@ public class InitDbService {
         productRepository.deleteAll();
     }
 
-//    @Transactional
-//    public void deleteAudTables(){
-//        jdbcTemplate.update("DELETE FROM address_aud");
-//        jdbcTemplate.update("DELETE FROM airport_aud");
-//        jdbcTemplate.update("DELETE FROM flight_aud");
-//    }
+    @Transactional
+    public void deleteAudData(){
+        jdbcTemplate.update("DELETE FROM product_aud");
+        jdbcTemplate.update("DELETE FROM category_aud");
+    }
 
     @Transactional
     public void addInitData() {

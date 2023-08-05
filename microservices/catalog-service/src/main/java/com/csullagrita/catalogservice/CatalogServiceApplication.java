@@ -12,7 +12,6 @@ public class CatalogServiceApplication implements CommandLineRunner {
 
     private final InitDbService dbInitService;
 
-
     public static void main(String[] args) {
         SpringApplication.run(CatalogServiceApplication.class, args);
     }
@@ -20,7 +19,7 @@ public class CatalogServiceApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         dbInitService.deleteData();
-//        dbInitService.deleteAudData();
+        dbInitService.deleteAudData();
         dbInitService.addInitData();
     }
 }
