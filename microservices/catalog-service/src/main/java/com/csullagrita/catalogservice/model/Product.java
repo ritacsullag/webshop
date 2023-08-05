@@ -2,8 +2,9 @@ package com.csullagrita.catalogservice.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.envers.Audited;
 
-
+@Audited
 @Entity
 @Builder
 @Data
