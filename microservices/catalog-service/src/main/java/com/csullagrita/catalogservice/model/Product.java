@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString(onlyExplicitlyIncluded = true)
-//@NamedEntityGraph(name = "Product.category", attributeNodes = @NamedAttributeNode("category"))
+@NamedEntityGraph(name = "Product.category", attributeNodes = @NamedAttributeNode("category"))
 public class Product {
 
     @Id

@@ -21,7 +21,7 @@ public class InitDbService {
 
     @Transactional
 //    @LogCall
-    public void deleteData(){
+    public void deleteData() {
         categoryRepository.deleteAll();
 
     }

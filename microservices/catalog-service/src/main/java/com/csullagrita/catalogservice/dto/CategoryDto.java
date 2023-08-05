@@ -1,6 +1,5 @@
 package com.csullagrita.catalogservice.dto;
 
-import com.csullagrita.catalogservice.model.Product;
 import lombok.Data;
 
 import java.util.Set;
@@ -12,5 +11,5 @@ public class CategoryDto {
 
     private String name;
 
-    Set<Product> products;
+    Set<ProductDto> products;
 }

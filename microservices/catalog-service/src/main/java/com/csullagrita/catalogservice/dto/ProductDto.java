@@ -1,6 +1,5 @@
 package com.csullagrita.catalogservice.dto;
 
-import com.csullagrita.catalogservice.model.Category;
 import lombok.Data;
 
 @Data
@@ -12,5 +11,5 @@ public class ProductDto {
 
     private double price;
 
-    Category category;
+    CategoryDto category;
 }

@@ -1,6 +1,9 @@
 package com.csullagrita.catalogservice.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.*;
 
 import java.util.HashSet;
@@ -27,7 +30,7 @@ public class Category {
 
     public void addProductToCategory(Product product) {
         product.setCategory(this);
-        if(this.products == null)
+        if (this.products == null)
             this.products = new HashSet<>();
         this.products.add(product);
     }

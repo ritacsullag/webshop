@@ -22,7 +22,7 @@ public class CategoryController {
     private final CategoryMapper categoryMapper;
 
     @PostMapping
-    public ResponseEntity<?> createNewCategory(@RequestBody CategoryDto categoryDto){
+    public ResponseEntity<?> createNewCategory(@RequestBody CategoryDto categoryDto) {
         try {
             return ResponseEntity.ok(categoryMapper.categoryToDto(categoryService.saveCategory(categoryDto.getName())));
         } catch (NamingException e) {

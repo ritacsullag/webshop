@@ -1,15 +1,21 @@
 package com.csullagrita.catalogservice.service;
 
-import com.csullagrita.catalogservice.model.Category;
 import com.csullagrita.catalogservice.model.Product;
+import com.csullagrita.catalogservice.model.QProduct;
 import com.csullagrita.catalogservice.repository.CategoryRepository;
 import com.csullagrita.catalogservice.repository.ProductRepository;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.NoSuchElementException;
+
 
 @Service
 @Component
@@ -23,7 +29,7 @@ public class ProductService {
     public Product saveProduct(Product product) {
 //      csak letezo kategoriahoz lehet lementeni
         product.setCategory(categoryRepository.findById(product.getCategory().getId())
-                .orElseThrow(()-> new NoSuchElementException("Category does not exist!")));
+                .orElseThrow(() -> new NoSuchElementException("Category does not exist!")));
         return productRepository.save(product);
     }
 
@@ -45,4 +51,15 @@ public class ProductService {
             throw new NoSuchElementException("Product does not exist");
         }
     }
+
+    public List<Product> search(Predicate predicate, Pageable pageable) {
+        Page<Product> productPage = productRepository.findAll(predicate, pageable);
+        BooleanExpression productIdInPredicate = QProduct.product.in(productPage.getContent());
+
+//        List<Product> products = productRepository.findAll(productIdInPredicate, "Product.category", Sort.unsorted());
+        List<Product> products = productRepository.findAll(productIdInPredicate, "Product.category", pageable.getSort());
+        return products;
+    }
+
+    ;
 }
