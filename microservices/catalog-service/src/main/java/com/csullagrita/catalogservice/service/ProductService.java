@@ -15,6 +15,7 @@ import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.AuditReaderFactory;
 import org.hibernate.envers.DefaultRevisionEntity;
 import org.hibernate.envers.query.AuditEntity;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -69,6 +70,7 @@ public class ProductService {
         return products;
     }
 
+    @Cacheable("ProductHistoryWithRelation")
     @Transactional
     public List<HistoryData<Product>> getProductHistoryWithRelation(long productId) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
