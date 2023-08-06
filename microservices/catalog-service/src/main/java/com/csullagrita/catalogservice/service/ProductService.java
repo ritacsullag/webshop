@@ -14,11 +14,9 @@ import lombok.RequiredArgsConstructor;
 import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.AuditReaderFactory;
 import org.hibernate.envers.DefaultRevisionEntity;
-import org.hibernate.envers.RevisionType;
 import org.hibernate.envers.query.AuditEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +25,6 @@ import java.util.NoSuchElementException;
 
 
 @Service
-@Component
 @RequiredArgsConstructor
 public class ProductService {
 
@@ -68,8 +65,6 @@ public class ProductService {
     public List<Product> search(Predicate predicate, Pageable pageable) {
         Page<Product> productPage = productRepository.findAll(predicate, pageable);
         BooleanExpression productIdInPredicate = QProduct.product.in(productPage.getContent());
-
-//        List<Product> products = productRepository.findAll(productIdInPredicate, "Product.category", Sort.unsorted());
         List<Product> products = productRepository.findAll(productIdInPredicate, "Product.category", pageable.getSort());
         return products;
     }

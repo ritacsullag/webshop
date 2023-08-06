@@ -20,7 +20,7 @@ public class InitDbService {
     @Autowired
     ProductRepository productRepository;
 
-    JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     @Transactional
 //    @LogCall

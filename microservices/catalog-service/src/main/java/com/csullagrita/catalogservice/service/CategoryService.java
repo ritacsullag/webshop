@@ -12,7 +12,6 @@ import javax.naming.NamingException;
 import java.util.NoSuchElementException;
 
 @Service
-@Component
 @RequiredArgsConstructor
 public class CategoryService {
 
