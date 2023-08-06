@@ -30,7 +30,7 @@ public class InitDbService {
     }
 
     @Transactional
-    public void deleteAudData(){
+    public void deleteAudData() {
         jdbcTemplate.update("DELETE FROM product_aud");
         jdbcTemplate.update("DELETE FROM category_aud");
     }

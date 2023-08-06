@@ -1,8 +1,8 @@
 package com.csullagrita.catalogservice.mapper;
 
-import com.csullagrita.catalogservice.dto.CategoryDto;
-import com.csullagrita.catalogservice.dto.ProductDto;
-import com.csullagrita.catalogservice.dto.ProductPriceHistoryDto;
+import com.csullagrita.catalogservice.api.model.CategoryDto;
+import com.csullagrita.catalogservice.api.model.ProductDto;
+import com.csullagrita.catalogservice.api.model.ProductPriceHistoryDto;
 import com.csullagrita.catalogservice.model.Category;
 import com.csullagrita.catalogservice.model.Product;
 import org.mapstruct.IterableMapping;

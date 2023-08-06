@@ -3,7 +3,6 @@ package com.csullagrita.catalogservice.service;
 import com.csullagrita.catalogservice.model.Category;
 import com.csullagrita.catalogservice.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
