@@ -9,6 +9,10 @@ plugins {
 group = 'com.csullagrita'
 version = '0.0.1-SNAPSHOT'
 
+ext {
+    set('springCloudVersion', "2022.0.4")
+}
+
 java {
     sourceCompatibility = '17'
 }
@@ -63,6 +67,9 @@ dependencies {
     implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
     implementation 'org.jetbrains:annotations:24.0.0'
     implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+
+//    config-server-client
+    implementation 'org.springframework.cloud:spring-cloud-starter-config:4.0.4'
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
