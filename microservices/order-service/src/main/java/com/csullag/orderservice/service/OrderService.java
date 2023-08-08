@@ -51,7 +51,7 @@ public class OrderService {
         if (isConfirmed) {
             order.setState(State.CONFIRMED);
             int deliveryId = shipmentService.createNewDelivery(order);
-            logger.info(String.format("Shippment-service sent the shipmentId: %s", deliveryId));
+            logger.info(String.format("Shipment-service sent the shipmentId: %s", deliveryId));
         } else {
             order.setState(State.DECLINED);
         }
