@@ -59,6 +59,12 @@ dependencies {
     implementation "javax.xml.ws:jaxws-api:2.3.1"
     implementation 'org.apache.cxf:cxf-spring-boot-starter-jaxws:4.0.2'
 
+    //ActiveMQ server-side
+    implementation 'org.springframework.boot:spring-boot-starter-artemis:3.1.1'
+    implementation 'org.apache.activemq:activemq-kahadb-store:5.18.2'
+    implementation 'org.apache.activemq:artemis-jakarta-server:2.29.0'
+
+
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
@@ -91,7 +97,7 @@ ext {
 tasks.register('generateSources') {
     ext.wsdlFile = "http://localhost:8084/services/shipment?wsdl"
     ext.wsdlLocation = "http://localhost:8084/services/shipment?wsdl"
-    ext.bindingDir = "${projectDir}/src/main/resources/sample/xjb"
+    ext.bindingDir = "${projectDir}/src/main/java/com/csullag/orderservice/wsdl"
 
     doLast {
         ant {
@@ -106,10 +112,18 @@ tasks.register('generateSources') {
                     wsdlLocation: wsdlLocation,
                     keep: true,
                     xnocompile: true) {
+                binding(dir: bindingDir, includes: "*.xml")
             }
         }
     }
 }
+
+
+tasks.register('cleanGenerated', Delete) {
+    delete generatedDir
+}
+
+clean.dependsOn cleanGenerated
 
 compileJava {
     dependsOn generateSources

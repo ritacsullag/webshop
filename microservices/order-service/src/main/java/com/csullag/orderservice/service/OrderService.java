@@ -2,6 +2,7 @@ package com.csullag.orderservice.service;
 
 import com.csullag.orderservice.model.OrderItem;
 import com.csullag.orderservice.model.ProductOrder;
+import com.csullag.orderservice.model.ProductOrder.State;
 import com.csullag.orderservice.repository.OrderRepository;
 import jakarta.ws.rs.NotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,7 @@ public class OrderService {
 
     @Transactional
     public ProductOrder save(ProductOrder productorder) {
-        productorder.setState(ProductOrder.State.PENDING);
+        productorder.setState(State.PENDING);
         Set<OrderItem> savedItems = new HashSet<>();
 
         Set<OrderItem> items = productorder.getItems();
@@ -48,12 +49,23 @@ public class OrderService {
     public ProductOrder processStatus(long orderId, boolean isConfirmed) {
         ProductOrder order = orderRepository.findById(orderId).orElseThrow(NotFoundException::new);
         if (isConfirmed) {
-            order.setState(ProductOrder.State.CONFIRMED);
+            order.setState(State.CONFIRMED);
             int deliveryId = shipmentService.createNewDelivery(order);
             logger.info(String.format("Shippment-service sent the shipmentId: %s", deliveryId));
         } else {
-            order.setState(ProductOrder.State.DECLINED);
+            order.setState(State.DECLINED);
         }
         return orderRepository.save(order);
+    }
+
+    @Transactional
+    public void setDeliveryStatus(long orderId, Boolean delivered){
+        ProductOrder order = orderRepository.findById(orderId).orElseThrow(NotFoundException::new);
+        if (Boolean.TRUE.equals(delivered)) {
+            order.setState(State.DELIVERED);
+        } else {
+            order.setState(State.SHIPMENT_FAILED);
+        }
+        orderRepository.save(order);
     }
 }
