@@ -5,6 +5,8 @@ import com.csullag.orderservice.model.ProductOrder;
 import com.csullag.orderservice.repository.OrderRepository;
 import jakarta.ws.rs.NotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,8 +17,12 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 public class OrderService {
+
+    private final Logger logger = LoggerFactory.getLogger(OrderService.class);
+
     private final OrderItemService orderItemService;
     private final OrderRepository orderRepository;
+    private final ShipmentService shipmentService;
 
     @Transactional
     public ProductOrder save(ProductOrder productorder) {
@@ -43,6 +49,8 @@ public class OrderService {
         ProductOrder order = orderRepository.findById(orderId).orElseThrow(NotFoundException::new);
         if (isConfirmed) {
             order.setState(ProductOrder.State.CONFIRMED);
+            int deliveryId = shipmentService.createNewDelivery(order);
+            logger.info(String.format("Shippment-service sent the shipmentId: %s", deliveryId));
         } else {
             order.setState(ProductOrder.State.DECLINED);
         }

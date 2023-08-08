@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: order
+  config:
+    import: optional:configserver:http://localhost:8081
+
+#SQL creation with the help of spring JPA
+  jpa:
+    properties:
+      jakarta:
+        persistence:
+          schema-generation:
+            create-source: metadata
+            scripts:
+              action: create
+              create-target: create.sql

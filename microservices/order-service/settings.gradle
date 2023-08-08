@@ -1,0 +1,4 @@
+rootProject.name = 'order-service'
+//include('catalog-service')
+//project(':catalog-service').projectDir = file(':../catalog-service')
+
