@@ -1,0 +1,20 @@
+server:
+  port: 8083
+  error:
+    include-message: always
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8085/eureka/
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/webshop
+    username: postgres
+    password: password
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+    open-in-view: false

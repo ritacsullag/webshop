@@ -14,3 +14,9 @@ spring:
             - Path=/catalog/**
           filters:
             - RewritePath=/catalog(?<segment>/?.*), /api$\{segment}
+        - id: order-service
+          uri: lb://order
+          predicates:
+          - Path=/order/**
+          filters:
+          - RewritePath=/order(?<segment>/?.*), /api$\{segment}
