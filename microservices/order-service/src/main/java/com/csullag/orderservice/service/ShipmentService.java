@@ -12,10 +12,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ShipmentService {
 
+    public static final String ADDRESS_OF_ADMISSION = "1084, Budapest Paradicsom utca 5";
     private final ShipmentMapper shipmentMapper;
 
     public int createNewDelivery(ProductOrder order) {
         ShipmentOrderDto shipmentDto = shipmentMapper.orderToShipmentOrderDto(order);
+        shipmentDto.setAddressOfAdmission(ADDRESS_OF_ADMISSION);
         ShippingXmlWs shippingXmlWsImplPort = new ShippingXmlWsImplService().getShippingXmlWsImplPort();
         return shippingXmlWsImplPort.createNewDelivery(shipmentDto);
     }
