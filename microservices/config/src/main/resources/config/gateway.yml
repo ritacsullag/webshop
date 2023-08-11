@@ -20,3 +20,10 @@ spring:
           - Path=/order/**
           filters:
           - RewritePath=/order(?<segment>/?.*), /api$\{segment}
+        - id: user-service
+#          app name should be used in uri
+          uri: lb://user
+          predicates:
+            - Path=/user/**
+          filters:
+            - RewritePath=/user(?<segment>/?.*), /api$\{segment}

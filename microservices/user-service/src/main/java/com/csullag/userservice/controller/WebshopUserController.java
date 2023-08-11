@@ -6,12 +6,9 @@ import com.csullag.userservice.dto.WebshopUserDto;
 import com.csullag.userservice.mapper.WebshopUserMapper;
 import com.csullag.userservice.model.WebshopUser;
 import com.csullag.userservice.service.WebshopUserService;
-import com.nimbusds.oauth2.sdk.util.singleuse.AlreadyUsedException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -30,10 +27,14 @@ public class WebshopUserController {
     }
 
     @PostMapping("/register")
-    public WebshopUserDto createWebshopUser(@Valid @RequestBody WebshopUserDto userDto) throws AlreadyUsedException {
-        WebshopUser webshopUser = webshopUserService.createWebshopUser(webshopUserMapper.dtoToWebshopUser(userDto));
-        WebshopUserDto webshopUserDto = webshopUserMapper.webshopUserToDto(webshopUser);
-        return webshopUserDto;
+    public ResponseEntity createWebshopUser(@Valid @RequestBody WebshopUserDto userDto) {
+        try {
+            WebshopUser webshopUser = webshopUserService.createWebshopUser(webshopUserMapper.dtoToWebshopUser(userDto));
+            WebshopUserDto webshopUserDto = webshopUserMapper.webshopUserToDto(webshopUser);
+            return ResponseEntity.ok(webshopUserDto);
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @PostMapping("/login")
