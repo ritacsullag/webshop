@@ -1,4 +1,4 @@
-package com.csulagrita.config;
+package com.csullagrita.config;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
