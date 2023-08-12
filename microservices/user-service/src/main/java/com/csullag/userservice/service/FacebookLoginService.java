@@ -11,15 +11,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 public class FacebookLoginService {
     private static final String GRAPH_API_BASE_URL = "https://graph.facebook.com/v13.0";
+    private static final String CUSTOMER_ROLE = "customer";
 
     private final WebshopUserRepository userRepository;
-
-    //Google-os osztallyal vagy massal is ujrahasznalhato az osztaly
 
     @Getter
     @Setter
@@ -31,8 +31,8 @@ public class FacebookLoginService {
     @Transactional
     public UserDetails getUserDetailsForToken(String facebookToken) {
         FacebookData facebookData = getEmailOfFacebookUser(facebookToken);
-        WebshopUser WebshopUser = findOrCreateUser(facebookData);
-        return WebshopUserDetailsService.createUserDetails(WebshopUser);
+        WebshopUser webshopUser = findOrCreateUser(facebookData);
+        return WebshopUserDetailsService.createUserDetails(webshopUser);
 
     }
 
@@ -61,6 +61,8 @@ public class FacebookLoginService {
                     .facebookId(facebookId)
                     .username(facebookData.getEmail())
                     .password("dummy")
+                    .roles(Set.of(CUSTOMER_ROLE))
+                    .email(facebookData.getEmail())
                     .build();
             return userRepository.save(newUser);
         } else {

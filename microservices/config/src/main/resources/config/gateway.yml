@@ -17,11 +17,10 @@ spring:
         - id: order-service
           uri: lb://order
           predicates:
-          - Path=/order/**
+            - Path=/order/**
           filters:
-          - RewritePath=/order(?<segment>/?.*), /api$\{segment}
-        - id: user-service
-#          app name should be used in uri
+            - RewritePath=/order(?<segment>/?.*), /api$\{segment}
+        - id: user
           uri: lb://user
           predicates:
             - Path=/user/**

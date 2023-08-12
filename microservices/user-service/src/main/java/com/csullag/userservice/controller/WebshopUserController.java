@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/webshopusers")
+@RequestMapping("/api/users")
 public class WebshopUserController {
 
     private final WebshopUserMapper webshopUserMapper;
