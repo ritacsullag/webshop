@@ -98,8 +98,6 @@ public class ProductController implements ProductControllerApi {
     public void configPageable(@SortDefault("id") Pageable pageable) {
     }
 
-    ;
-
     private Pageable createPageable() {
         Pageable pageable;
         Method method = null;
@@ -116,8 +114,6 @@ public class ProductController implements ProductControllerApi {
     //Predicte
     public void configurePredicate(@QuerydslPredicate(root = Product.class) Predicate predicate) {
     }
-
-    ;
 
     private Predicate createPredicate() {
         Method method;

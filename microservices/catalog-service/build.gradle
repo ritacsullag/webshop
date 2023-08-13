@@ -78,6 +78,9 @@ dependencies {
     implementation project(':token-lib')
     implementation 'org.springframework.boot:spring-boot-starter-security:3.1.2'
 
+    //openfeign for api requests
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.0.4'
+
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

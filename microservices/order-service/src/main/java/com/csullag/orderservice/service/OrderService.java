@@ -4,10 +4,14 @@ import com.csullag.orderservice.model.OrderItem;
 import com.csullag.orderservice.model.ProductOrder;
 import com.csullag.orderservice.model.ProductOrder.State;
 import com.csullag.orderservice.repository.OrderRepository;
+import com.csullagrita.catalogservice.api.ProductControllerApi;
+import com.csullagrita.catalogservice.api.model.ProductDto;
 import jakarta.ws.rs.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +23,9 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class OrderService {
 
+    @Autowired
+    ProductControllerApi productControllerApi;
+
     private final Logger logger = LoggerFactory.getLogger(OrderService.class);
 
     private final OrderItemService orderItemService;
@@ -29,6 +36,11 @@ public class OrderService {
     public ProductOrder save(ProductOrder productorder) {
         productorder.setState(State.PENDING);
         Set<OrderItem> savedItems = new HashSet<>();
+
+//        Set<OrderItem> items = new HashSet<>();
+//        for (OrderItem orderItem : productorder.getItems()) {
+//            ResponseEntity<List<ProductDto>> listResponseEntity = productControllerApi.searchProduct(orderItem.getName(), List.of(0.0, orderItem.getPrice()), null, null, null, null);
+//        }
 
         Set<OrderItem> items = productorder.getItems();
         productorder.setItems(null);

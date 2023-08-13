@@ -3,6 +3,9 @@ spring:
     name: order
   config:
     import: optional:configserver:http://localhost:8081
+feign:
+  product:
+    url: http://localhost:8080/catalog
 
 #SQL creation with the help of spring JPA
 #  jpa:
