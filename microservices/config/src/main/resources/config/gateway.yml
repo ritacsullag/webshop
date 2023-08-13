@@ -26,3 +26,8 @@ spring:
             - Path=/user/**
           filters:
             - RewritePath=/user(?<segment>/?.*), /api$\{segment}
+com:
+  csullagrita:
+    tokenlib:
+      keypaths:
+        public: /Users/i554916/tmp/public.pem

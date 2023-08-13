@@ -3,7 +3,9 @@ package com.csullag.userservice.service;
 import com.csullag.userservice.dto.LoginDto;
 import com.csullag.userservice.model.WebshopUser;
 import com.csullag.userservice.repository.WebshopUserRepository;
+import com.csullagrita.tokenlib.JwtService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,6 +28,9 @@ public class WebshopUserService {
     private final AuthenticationManager authenticationManager;
 
     private final FacebookLoginService facebookLoginService;
+
+    @Autowired
+    JwtService jwtService;
 
 
     public WebshopUser findById(long id) {
@@ -54,7 +59,6 @@ public class WebshopUserService {
             userDetails = facebookLoginService.getUserDetailsForToken(loginDto.getFacebookToken());
         }
 
-//        return "\"" + jwtService.creatJwtToken(userDetails) + "\"";
-        return "null";
+        return "\"" + jwtService.creatJwtToken(userDetails) + "\"";
     }
 }
