@@ -17,4 +17,9 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       ddl-auto: none
-    open-in-view: false
+      open-in-view: false
+com:
+  csullagrita:
+    tokenlib:
+      keypaths:
+        public: /Users/i554916/tmp/public.pem

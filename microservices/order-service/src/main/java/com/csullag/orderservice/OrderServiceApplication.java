@@ -1,12 +1,12 @@
 package com.csullag.orderservice;
 
+import com.csullagrita.tokenlib.JwtAuthFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 //import org.springframework.cloud.openfeign.EnableFeignClients;
 
-
-@SpringBootApplication
 //@EnableFeignClients(basePackageClasses = {ProductControllerApi.class})
+@SpringBootApplication(scanBasePackageClasses = {OrderServiceApplication.class, JwtAuthFilter.class})
 public class OrderServiceApplication {
 
     public static void main(String[] args) {

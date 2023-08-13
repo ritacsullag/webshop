@@ -4,6 +4,7 @@ import com.csullag.orderservice.dto.OrderDto;
 import com.csullag.orderservice.mapper.OrderMapper;
 import com.csullag.orderservice.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class OrderController {
         return orderMapper.orderToDto(orderService.save(orderMapper.dtoToOrder(orderDto)));
     }
 
+    @PreAuthorize("hasAuthority('admin') or #username == authentication.principal.username")
     @GetMapping("/order")
     public List<OrderDto> searchOrderByName(@RequestParam String username){
         return orderMapper.ordersToDto(orderService.searchOrderByName(username));
