@@ -74,6 +74,10 @@ dependencies {
     //discovery
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:4.0.3'
 
+    //authentication
+    implementation project(':token-lib')
+    implementation 'org.springframework.boot:spring-boot-starter-security:3.1.2'
+
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'

@@ -1,6 +1,7 @@
 package com.csullagrita.catalogservice;
 
 import com.csullagrita.catalogservice.service.InitDbService;
+import com.csullagrita.tokenlib.JwtAuthFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -8,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 
 @RequiredArgsConstructor
-@SpringBootApplication
+@SpringBootApplication(scanBasePackageClasses = {JwtAuthFilter.class, CatalogServiceApplication.class})
 @EnableCaching
 public class CatalogServiceApplication implements CommandLineRunner {
 
