@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.PathContainer;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Component;
@@ -27,7 +29,8 @@ public class JwtCheckingFilter implements GlobalFilter {
     @Autowired
     private JwtService jwtService;
 
-    private PathPattern loginPathPattern = PathPatternParser.defaultInstance.parse("/users/login");
+    private PathPattern loginPathPattern = PathPatternParser.defaultInstance.parse("/user/users/login");
+//    private PathPattern loginPathPattern = PathPatternParser.defaultInstance.parse("/user/users/login");
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -35,7 +38,7 @@ public class JwtCheckingFilter implements GlobalFilter {
         Set<URI> origUrls = exchange.getAttribute(ServerWebExchangeUtils.GATEWAY_ORIGINAL_REQUEST_URL_ATTR);
         URI originalUri = origUrls.iterator().next();
 
-        if (loginPathPattern.matches(PathContainer.parsePath(originalUri.toString()).subPath(4)))
+        if (loginPathPattern.matches(PathContainer.parsePath(originalUri.toString()).subPath(4)) || getRequestToCatalogService(exchange.getRequest()))
             return chain.filter(exchange);
 
         List<String> authHeaders = exchange.getRequest().getHeaders().get("Authorization");
@@ -55,6 +58,11 @@ public class JwtCheckingFilter implements GlobalFilter {
         }
 
         return chain.filter(exchange);
+    }
+
+    private boolean getRequestToCatalogService(ServerHttpRequest request) {
+         boolean uriInCatalogService = request.getURI().toString().contains("/api/products") || request.getURI().toString().contains("/api/category");
+         return request.getMethod() == HttpMethod.GET && uriInCatalogService;
     }
 
     private Mono<Void> send401Response(ServerWebExchange exchange) {
