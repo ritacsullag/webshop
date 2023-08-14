@@ -37,13 +37,14 @@ public class OrderService {
         productorder.setState(State.PENDING);
         Set<OrderItem> savedItems = new HashSet<>();
 
-//        Set<OrderItem> items = new HashSet<>();
-//        for (OrderItem orderItem : productorder.getItems()) {
-//            ResponseEntity<List<ProductDto>> listResponseEntity = productControllerApi.searchProduct(orderItem.getName(), List.of(0.0, orderItem.getPrice()), null, null, null, null);
-//        }
-
         Set<OrderItem> items = productorder.getItems();
         productorder.setItems(null);
+//        Not implemented in catalog-service
+//        Set<OrderItem> items = new HashSet<>();
+//        for (OrderItem orderItem : productorder.getItems()) {
+//            ProductDto productDto = productControllerApi.getProductByName(orderItem.getName());
+//            items.add(orderItemMapper.productDtoToOrderItem(productDto))
+//        }
         items.forEach(orderItem -> savedItems.add(orderItemService.save(orderItem)));
 
         ProductOrder savedOrder = orderRepository.save(productorder);
