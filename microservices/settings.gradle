@@ -1,0 +1,8 @@
+rootProject.name = 'microservices'
+include 'config'
+include 'token-lib'
+include 'discovery'
+include 'gateway'
+include 'catalog-service'
+include 'order-service'
+include 'user-service'
