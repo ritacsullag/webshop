@@ -49,7 +49,6 @@ dependencies {
 
     //db
     runtimeOnly 'org.postgresql:postgresql'
-    implementation 'org.flywaydb:flyway-core'
 
     //jaxws
     implementation 'com.sun.xml.ws:jaxws-ri:4.0.1'
